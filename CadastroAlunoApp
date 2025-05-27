@@ -1,0 +1,114 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CadastroAlunoApp extends JFrame {
+
+    // Classe interna representando o aluno
+    static class Aluno {
+        private String nome;
+        private int idade;
+        private String cpf;
+        private String email;
+
+        public Aluno(String nome, int idade, String cpf, String email) {
+            this.nome = nome;
+            this.idade = idade;
+            this.cpf = cpf;
+            this.email = email;
+        }
+
+        @Override
+        public String toString() {
+            return "Aluno: " + nome + " | Idade: " + idade + " | CPF: " + cpf + " | Email: " + email;
+        }
+    }
+
+    // Componentes da interface
+    private JTextField txtNome;
+    private JTextField txtIdade;
+    private JTextField txtCpf;
+    private JTextField txtEmail;
+    private JButton btnCadastrar;
+
+    public CadastroAlunoApp() {
+        setTitle("Cadastro de Aluno");
+        setSize(400, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel painel = new JPanel();
+        painel.setLayout(new GridLayout(5, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        painel.add(new JLabel("Nome:"));
+        txtNome = new JTextField();
+        painel.add(txtNome);
+
+        painel.add(new JLabel("Idade:"));
+        txtIdade = new JTextField();
+        painel.add(txtIdade);
+
+        painel.add(new JLabel("CPF:"));
+        txtCpf = new JTextField();
+        painel.add(txtCpf);
+
+        painel.add(new JLabel("Email:"));
+        txtEmail = new JTextField();
+        painel.add(txtEmail);
+
+        btnCadastrar = new JButton("Cadastrar");
+        painel.add(btnCadastrar);
+
+        painel.add(new JLabel()); // espaço vazio
+
+        add(painel);
+
+        btnCadastrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cadastrarAluno();
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private void cadastrarAluno() {
+        String nome = txtNome.getText().trim();
+        String idadeStr = txtIdade.getText().trim();
+        String cpf = txtCpf.getText().trim();
+        String email = txtEmail.getText().trim();
+
+        if (nome.isEmpty() || idadeStr.isEmpty() || cpf.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+            return;
+        }
+
+        int idade;
+        try {
+            idade = Integer.parseInt(idadeStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Idade inválida. Digite um número inteiro.");
+            return;
+        }
+
+        Aluno aluno = new Aluno(nome, idade, cpf, email);
+        JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso:\n" + aluno.toString());
+
+        // Limpar campos
+        txtNome.setText("");
+        txtIdade.setText("");
+        txtCpf.setText("");
+        txtEmail.setText("");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new CadastroAlunoApp();
+            }
+        });
+    }
+}

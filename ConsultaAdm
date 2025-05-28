@@ -1,0 +1,75 @@
+package Projeto_Academia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe administrativa para consultar e listar alunos e planos.
+ */
+public class ConsultaAdm {
+    private static final List<AlunoAcademia> alunos = new ArrayList<>();
+
+    // Adiciona aluno à lista
+    public static void adicionarAluno(AlunoAcademia aluno) {
+        alunos.add(aluno);
+    }
+
+    // Lista todos os alunos cadastrados
+    public static void listarAlunos() {
+        if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+            return;
+        }
+
+        System.out.println("=== Lista de Alunos ===");
+        for (AlunoAcademia aluno : alunos) {
+            System.out.println(aluno);
+        }
+    }
+
+    // Lista todos os planos contratados por alunos
+    public static void listarPlanosContratados() {
+        if (alunos.isEmpty()) {
+            System.out.println("Nenhum plano encontrado.");
+            return;
+        }
+
+        System.out.println("=== Planos Contratados ===");
+        for (AlunoAcademia aluno : alunos) {
+            try {
+                Plano plano = aluno.getPlano();
+                System.out.println(aluno.getCpf() + ": " + plano.getNome() + " - R$" + plano.getPreco());
+            } catch (PlanoNaoEncontradoException e) {
+                System.out.println(aluno.getCpf() + ": Nenhum plano contratado.");
+            }
+        }
+    }
+
+    // Consulta detalhada por CPF
+    public static void consultarAlunoPorCpf(String cpf) {
+        for (AlunoAcademia aluno : alunos) {
+            if (aluno.getCpf().equals(cpf)) {
+                System.out.println("=== Dados do Aluno ===");
+                System.out.println(aluno);
+                try {
+                    System.out.println("Plano: " + aluno.getPlano());
+                } catch (PlanoNaoEncontradoException e) {
+                    System.out.println("Plano: não contratado.");
+                }
+
+                try {
+                    System.out.println("Ficha: " + aluno.getFicha());
+                } catch (FichaNaoEncontradaException e) {
+                    System.out.println("Ficha: não registrada.");
+                }
+                return;
+            }
+        }
+        System.out.println("Aluno com CPF " + cpf + " não encontrado.");
+    }
+
+    // Retorna todos os alunos (caso outras classes precisem)
+    public static List<AlunoAcademia> getAlunos() {
+        return alunos;
+    }
+}

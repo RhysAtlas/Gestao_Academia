@@ -30,6 +30,7 @@ Ideal para academias de pequeno e médio porte que desejam informatizar o acompa
 - Gabyfreitass- Tela de admistrador cadastra,modifica e exclui alunos e planos de treino.
 - Giokvalho- Tela que o aluno irá consultar plano de contratado e ficha de treino.
 - RhysAltas- Ajustes finais.
+- Gianlucas-Tela de criação e atualização das fichas de treinos.
 
 
 

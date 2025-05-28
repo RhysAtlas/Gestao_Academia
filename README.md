@@ -27,9 +27,9 @@ Ideal para academias de pequeno e médio porte que desejam informatizar o acompa
 - IDE como IntelliJ IDEA, Eclipse ou VS Code
 
 👨‍💻 Autor
-Gabyfreitass- Tela de admistrador cadastra,modifica e exclui alunos e planos de treino.
-Giokvalho- Tela que o aluno irá consultar plano de contratado e ficha de treino.
-RhysAltas- Ajustes finais.
+- Gabyfreitass- Tela de admistrador cadastra,modifica e exclui alunos e planos de treino.
+- Giokvalho- Tela que o aluno irá consultar plano de contratado e ficha de treino.
+- RhysAltas- Ajustes finais.
 
 
 

@@ -1,0 +1,117 @@
+// Exceção quando o aluno não tiver plano
+class PlanoNaoEncontradoException extends Exception {
+    public PlanoNaoEncontradoException(String mensagem) {
+        super(mensagem);
+    }
+}
+
+// Exceção quando o aluno não tiver ficha de treino
+class FichaNaoEncontradaException extends Exception {
+    public FichaNaoEncontradaException(String mensagem) {
+        super(mensagem);
+    }
+}
+
+// Classe que representa um plano da academia
+class Plano {
+    String nome;
+
+    Plano(String nome) {
+        this.nome = nome;
+    }
+
+    String getNome() {
+        return nome;
+    }
+}
+
+// Classe que representa a ficha de treino
+class FichaTreino {
+    String descricao;
+
+    FichaTreino(String descricao) {
+        this.descricao = descricao;
+    }
+
+    String getDescricao() {
+        return descricao;
+    }
+}
+
+// Classe que representa um aluno da academia
+class Aluno {
+    String nome;
+    Plano plano;
+    FichaTreino ficha;
+
+    Aluno(String nome) {
+        this.nome = nome;
+    }
+
+    // Contrata um plano
+    void contratarPlano(Plano plano) {
+        this.plano = plano;
+        System.out.println("Plano '" + plano.getNome() + "' contratado com sucesso.");
+    }
+
+    // Adiciona a ficha de treino
+    void adicionarFicha(FichaTreino ficha) {
+        this.ficha = ficha;
+        System.out.println("Ficha de treino cadastrada com sucesso.");
+    }
+
+    // Mostra o plano contratado
+    void verPlano() throws PlanoNaoEncontradoException {
+        if (plano == null) {
+            throw new PlanoNaoEncontradoException("O aluno não contratou nenhum plano.");
+        }
+        System.out.println("Plano atual: " + plano.getNome());
+    }
+
+    // Mostra a ficha de treino
+    void verFicha() throws FichaNaoEncontradaException {
+        if (ficha == null) {
+            throw new FichaNaoEncontradaException("O aluno não possui ficha de treino.");
+        }
+        System.out.println("Ficha de treino: " + ficha.getDescricao());
+    }
+}
+
+// Classe principal que executa o sistema
+public class Academia {
+    public static void main(String[] args) {
+        // Criação do aluno
+        Aluno aluno = new Aluno("Giovanna");
+
+        System.out.println("=== CONSULTA INICIAL ===");
+
+        // Tentativa de ver plano e ficha antes de cadastrar
+        try {
+            aluno.verPlano();
+        } catch (PlanoNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        try {
+            aluno.verFicha();
+        } catch (FichaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        System.out.println("\n=== CADASTRANDO DADOS ===");
+
+        // Cadastra plano e ficha
+        aluno.contratarPlano(new Plano("Mensal Premium"));
+        aluno.adicionarFicha(new FichaTreino("Segunda: Glúteo / Terça: Posterior / Quarta: Descanso"));
+
+        System.out.println("\n=== CONSULTA FINAL ===");
+
+        // Consulta novamente, agora deve funcionar
+        try {
+            aluno.verPlano();
+            aluno.verFicha();
+        } catch (Exception e) {
+            System.out.println("Erro inesperado: " + e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,69 @@
+public class FichasDeTreino {
+    static Scanner scanner = new Scanner(System.in);
+    static Map<String, List<String>> fichas = new HashMap<>();
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n1. Criar ficha\n2. Atualizar ficha\n3. Ver ficha\n0. Sair");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1 -> criarFicha();
+                case 2 -> atualizarFicha();
+                case 3 -> verFicha();
+                case 0 -> { System.out.println("Encerrado."); return; }
+                default -> System.out.println("Opção inválida.");
+            }
+        }
+    }
+
+    static void criarFicha() {
+        System.out.print("CPF do aluno: ");
+        String cpf = scanner.nextLine();
+        fichas.put(cpf, new ArrayList<>());
+        System.out.println("Digite os exercícios (digite 'fim' para encerrar):");
+        while (true) {
+            String treino = scanner.nextLine();
+            if (treino.equalsIgnoreCase("fim")) break;
+            fichas.get(cpf).add(treino);
+        }
+        System.out.println("Ficha criada!");
+    }
+
+    static void atualizarFicha() {
+        System.out.print("CPF do aluno: ");
+        String cpf = scanner.nextLine();
+        List<String> treino = fichas.get(cpf);
+        if (treino == null) {
+            System.out.println("Ficha não encontrada.");
+            return;
+        }
+
+        for (int i = 0; i < treino.size(); i++) {
+            System.out.println((i + 1) + ". " + treino.get(i));
+        }
+
+        System.out.print("Número do exercício para atualizar: ");
+        int pos = scanner.nextInt() - 1;
+        scanner.nextLine();
+        System.out.print("Nova descrição: ");
+        String novo = scanner.nextLine();
+        treino.set(pos, novo);
+        System.out.println("Treino atualizado!");
+    }
+
+    static void verFicha() {
+        System.out.print("CPF do aluno: ");
+        String cpf = scanner.nextLine();
+        List<String> treino = fichas.get(cpf);
+        if (treino == null || treino.isEmpty()) {
+            System.out.println("Nenhuma ficha encontrada.");
+        } else {
+            System.out.println("Ficha de treino:");
+            for (int i = 0; i < treino.size(); i++) {
+                System.out.println((i + 1) + ". " + treino.get(i));
+            }
+        }
+    }
+}
